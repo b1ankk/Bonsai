@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.mos.frame.layouts.MainFrame">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.mos.frame.forms.MainFrame">
   <grid id="27dc6" binding="rootPanel" default-binding="true" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
       <xy x="20" y="20" width="649" height="462"/>
@@ -19,24 +19,19 @@
           <color color="-16777216"/>
         </border>
         <children>
-          <grid id="3c19a" binding="settingsPanel" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
+          <grid id="3c19a" binding="settingsPanel" layout-manager="GridLayoutManager" row-count="5" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="8" left="8" bottom="8" right="8"/>
             <constraints/>
             <properties>
               <alignmentX value="0.5"/>
               <minimumSize width="200" height="-1"/>
-              <preferredSize width="200" height="77"/>
+              <preferredSize width="220" height="-1"/>
             </properties>
             <clientProperties>
               <html.disable class="java.lang.Boolean" value="false"/>
             </clientProperties>
             <border type="none"/>
             <children>
-              <vspacer id="b24a2">
-                <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-                </constraints>
-              </vspacer>
               <component id="6d06c" class="javax.swing.JLabel">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="8" fill="0" indent="0" use-parent-layout="false">
@@ -75,6 +70,50 @@
                   <text value="10"/>
                 </properties>
               </component>
+              <component id="a8a2a" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Branches:"/>
+                </properties>
+              </component>
+              <component id="3e64f" class="javax.swing.JLabel" binding="branchesCountLabel">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="2"/>
+                </properties>
+              </component>
+              <hspacer id="5f12d">
+                <constraints>
+                  <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <component id="2fc86" class="javax.swing.JSlider" binding="branchesCountSlider">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <majorTickSpacing value="9"/>
+                  <maximum value="10"/>
+                  <minimum value="1"/>
+                  <minorTickSpacing value="1"/>
+                  <paintLabels value="true"/>
+                  <paintTicks value="true"/>
+                  <snapToTicks value="false"/>
+                  <value value="2"/>
+                </properties>
+              </component>
+              <grid id="20b68" binding="branchSettingsRootPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children/>
+              </grid>
             </children>
           </grid>
         </children>

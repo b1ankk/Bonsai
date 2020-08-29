@@ -1,6 +1,7 @@
 package com.mos;
 
-import com.mos.frame.layouts.MainFrame;
+import com.mos.frame.components.MyDrawingPanel;
+import com.mos.frame.forms.MainFrame;
 import com.mos.tree.BranchGrowthConfig;
 import com.mos.tree.Tree;
 import com.mos.util.Point;

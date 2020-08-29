@@ -1,4 +1,4 @@
-package com.mos;
+package com.mos.frame.components;
 
 import com.mos.tree.Tree;
 
