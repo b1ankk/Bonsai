@@ -2,15 +2,13 @@ package com.mos;
 
 import com.mos.frame.components.MyDrawingPanel;
 import com.mos.frame.forms.MainFrame;
-import com.mos.tree.BranchGrowthConfig;
 import com.mos.tree.Tree;
+import com.mos.tree.settings.BranchSetting;
+import com.mos.tree.settings.BranchesParentSettings;
 import com.mos.util.Point;
 
 import javax.swing.*;
 import java.awt.*;
-
-import static com.mos.tree.BranchGrowthConfig.BranchSetting;
-
 
 public class Frame extends JFrame {
     private MainFrame frameBase;
@@ -70,21 +68,23 @@ public class Frame extends JFrame {
         Tree tree = new Tree(treeStart, 0, 80);
         drawingPanel.setTree(tree);
     
-        BranchGrowthConfig branchGrowthConfig = new BranchGrowthConfig(12);
-        BranchSetting setting1 = new BranchSetting()
+        BranchesParentSettings branchesParentSettings = new BranchesParentSettings(12);
+        BranchSetting setting1 = new BranchSetting().getCloneManager()
             .withAngleDifference(-Math.PI / 8)
             .withColor(Color.GREEN)
             .withLengthChange(0.85)
-            .withThickness(3);
+            .withThickness(3)
+            .retrieve();
         
-        BranchSetting setting2 = setting1
+        BranchSetting setting2 = setting1.getCloneManager()
             .withAngleDifference(Math.PI / 6)
-            .withLengthChange(0.8);
+            .withLengthChange(0.8)
+            .retrieve();
     
-        branchGrowthConfig.addBranchSetting(setting1);
-        branchGrowthConfig.addBranchSetting(setting2);
+        branchesParentSettings.addBranchSetting(setting1);
+        branchesParentSettings.addBranchSetting(setting2);
         
-        tree.grow(branchGrowthConfig);
+        tree.grow(branchesParentSettings);
         drawingPanel.repaint();
     }
     

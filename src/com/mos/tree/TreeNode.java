@@ -1,6 +1,7 @@
 package com.mos.tree;
 
 import com.mos.Drawable;
+import com.mos.tree.settings.BranchesParentSettings;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class TreeNode implements Drawable {
         childBranches.add(childBranch);
     }
     
-    public void growAll(BranchGrowthConfig config) {
+    public void growAll(BranchesParentSettings config) {
         childBranches.forEach(branch -> branch.grow(config));
     }
     

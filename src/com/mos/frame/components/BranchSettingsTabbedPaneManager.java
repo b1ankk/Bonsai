@@ -1,6 +1,6 @@
 package com.mos.frame.components;
 
-import com.mos.frame.forms.BranchSetting;
+import com.mos.frame.forms.BranchSettingPane;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class BranchSettingsTabbedPaneManager {
     
     private void addNewSettingTab() {
         final String nextTabName = getNextTabName();
-        final JPanel newSettingsPanel = new BranchSetting().getRootPanel();
+        final JPanel newSettingsPanel = new BranchSettingPane().getRootPanel();
         
         parentSettingsPane.addTab(
             nextTabName,
