@@ -1,7 +1,7 @@
 package com.mos.tree;
 
 import com.mos.Drawable;
-import com.mos.tree.settings.BranchesParentSettings;
+import com.mos.tree.settings.TreeSettings;
 import com.mos.util.Point;
 
 import java.awt.*;
@@ -20,7 +20,7 @@ public class Tree implements Drawable {
         );
     }
     
-    public void grow(BranchesParentSettings config) {
+    public void grow(TreeSettings config) {
         root.grow(config);
     }
     

@@ -27,11 +27,11 @@ public class MainFrame {
     private JPanel branchSettingsRootPanel;
     
     // NON COMPONENT FIELDS
-    private BranchSettingsTabbedPaneManager configsPaneManager;
+    private BranchSettingsTabbedPaneManager settingsPaneManager;
     
     private void createUIComponents() {
         drawingPanel = new MyDrawingPanel();
-        configsPaneManager = new BranchSettingsTabbedPaneManager();
+        settingsPaneManager = new BranchSettingsTabbedPaneManager();
     }
     
     public MainFrame() {
@@ -44,8 +44,8 @@ public class MainFrame {
             levelAmountSlider.getValue() + ""
         );
     
-        configsPaneManager.addConfigPaneTo(branchSettingsRootPanel);
-        configsPaneManager.updateTabsCount(branchesCountSlider.getValue());
+        settingsPaneManager.addConfigPaneTo(branchSettingsRootPanel);
+        settingsPaneManager.updateTabsCount(branchesCountSlider.getValue());
     }
     
     private void addListeners() {
@@ -62,7 +62,7 @@ public class MainFrame {
                 branchesCountLabel.setText(
                     branchesCount + ""
                 );
-                configsPaneManager.updateTabsCount(branchesCount);
+                settingsPaneManager.updateTabsCount(branchesCount);
             }
         );
     }

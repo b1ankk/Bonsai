@@ -2,7 +2,7 @@ package com.mos.tree;
 
 import com.mos.Drawable;
 import com.mos.tree.settings.BranchSetting;
-import com.mos.tree.settings.BranchesParentSettings;
+import com.mos.tree.settings.TreeSettings;
 import com.mos.util.Point;
 
 import java.awt.*;
@@ -54,7 +54,7 @@ public class TreeBranch implements Drawable {
         return parentNode;
     }
     
-    public void grow(BranchesParentSettings config) {
+    public void grow(TreeSettings config) {
         if (parentNode.getLevel() >= config.getTargetGrowthLevel())
             return;
         

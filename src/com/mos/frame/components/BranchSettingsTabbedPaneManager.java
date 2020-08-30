@@ -1,14 +1,17 @@
 package com.mos.frame.components;
 
 import com.mos.frame.forms.BranchSettingPane;
+import com.mos.tree.settings.BranchSetting;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class BranchSettingsTabbedPaneManager {
     private final BranchSettingsTabbedPane parentSettingsPane;
     
-    private final ArrayList<JPanel> branchSettingsBuffer = new ArrayList<>();
+    private final ArrayList<BranchSettingPane> branchSettingsBuffer = new ArrayList<>();
     private int nextPanelIndex = 0;
     
     public BranchSettingsTabbedPaneManager() {
@@ -51,25 +54,26 @@ public class BranchSettingsTabbedPaneManager {
     
     private void addNewSettingTab() {
         final String nextTabName = getNextTabName();
-        final JPanel newSettingsPanel = new BranchSettingPane().getRootPanel();
+        final BranchSettingPane newSettingsPane =
+            new BranchSettingPane(new BranchSetting());
         
         parentSettingsPane.addTab(
             nextTabName,
-            newSettingsPanel
+            newSettingsPane.getRootPanel()
         );
         
-        branchSettingsBuffer.add(newSettingsPanel);
+        branchSettingsBuffer.add(newSettingsPane);
         ++nextPanelIndex;
     }
     
     private void addRetrievedSettingsTab() {
         final String nextTabName = getNextTabName();
-        final JPanel retrievedSettingsPanel =
+        final BranchSettingPane retrievedSettingsPanel =
             branchSettingsBuffer.get(nextPanelIndex);
     
         parentSettingsPane.addTab(
             nextTabName,
-            retrievedSettingsPanel
+            retrievedSettingsPanel.getRootPanel()
         );
         
         ++nextPanelIndex;
@@ -81,6 +85,17 @@ public class BranchSettingsTabbedPaneManager {
     
     public void addConfigPaneTo(JComponent component) {
         component.add(parentSettingsPane);
+    }
+    
+    public List<BranchSetting> getAllBranchSettings() {
+        final List<BranchSetting> settings = new ArrayList<>(nextPanelIndex);
+        
+        for (int i = 0; i < nextPanelIndex; ++i) {
+            settings.add(
+                branchSettingsBuffer.get(i).getModelSetting()
+            );
+        }
+        return Collections.unmodifiableList(settings);
     }
     
 }

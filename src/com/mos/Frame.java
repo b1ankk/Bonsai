@@ -3,8 +3,7 @@ package com.mos;
 import com.mos.frame.components.MyDrawingPanel;
 import com.mos.frame.forms.MainFrame;
 import com.mos.tree.Tree;
-import com.mos.tree.settings.BranchSetting;
-import com.mos.tree.settings.BranchesParentSettings;
+import com.mos.tree.settings.TreeSettings;
 import com.mos.util.Point;
 
 import javax.swing.*;
@@ -43,7 +42,7 @@ public class Frame extends JFrame {
         drawingPanel = (MyDrawingPanel) frameBase.getDrawingPanel();
     
         drawButton = frameBase.getDrawButton();
-        drawButton.addActionListener(e -> startDrawingTree());
+        drawButton.addActionListener(e -> startDrawingTree(TreeSettings.getDefaultTreeSettings()));
     }
     
     private void setUpLookAndFeel() {
@@ -59,7 +58,7 @@ public class Frame extends JFrame {
         }
     }
     
-    private void startDrawingTree() {
+    private void startDrawingTree(TreeSettings treeSettings) {
         Point treeStart = new Point(
           drawingPanel.getWidth() / 2,
           drawingPanel.getHeight()
@@ -67,24 +66,8 @@ public class Frame extends JFrame {
         
         Tree tree = new Tree(treeStart, 0, 80);
         drawingPanel.setTree(tree);
-    
-        BranchesParentSettings branchesParentSettings = new BranchesParentSettings(12);
-        BranchSetting setting1 = new BranchSetting().getCloneManager()
-            .withAngleDifference(-Math.PI / 8)
-            .withColor(Color.GREEN)
-            .withLengthChange(0.85)
-            .withThickness(3)
-            .retrieve();
         
-        BranchSetting setting2 = setting1.getCloneManager()
-            .withAngleDifference(Math.PI / 6)
-            .withLengthChange(0.8)
-            .retrieve();
-    
-        branchesParentSettings.addBranchSetting(setting1);
-        branchesParentSettings.addBranchSetting(setting2);
-        
-        tree.grow(branchesParentSettings);
+        tree.grow(treeSettings);
         drawingPanel.repaint();
     }
     

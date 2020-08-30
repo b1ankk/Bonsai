@@ -1,5 +1,7 @@
 package com.mos.frame.forms;
 
+import com.mos.tree.settings.BranchSetting;
+
 import javax.swing.*;
 
 public class BranchSettingPane {
@@ -11,14 +13,18 @@ public class BranchSettingPane {
     private JButton resetToDefaultsButton;
     private JButton copyToAllButton;
     
-    public BranchSettingPane() {
+    private BranchSetting modelSetting;
+    
+    public BranchSettingPane(BranchSetting modelSetting) {
+        this.modelSetting = modelSetting;
+        
         init();
-        addListeners();
+        resetToSetting(this.modelSetting);
     }
     
     private void init() {
-        updateAngleDifferenceLabel();
-        updateLengthChangeLabel();
+        updateUI();
+        addListeners();
     }
     
     private void addListeners() {
@@ -29,6 +35,15 @@ public class BranchSettingPane {
         lengthChangeSlider.addChangeListener(
             e -> updateLengthChangeLabel()
         );
+        
+        resetToDefaultsButton.addActionListener(
+            e -> resetToDefaults()
+        );
+    }
+    
+    private void updateUI() {
+        updateAngleDifferenceLabel();
+        updateLengthChangeLabel();
     }
     
     private void updateAngleDifferenceLabel() {
@@ -43,6 +58,44 @@ public class BranchSettingPane {
         );
     }
     
+    private void resetToDefaults() {
+        resetToSetting(new BranchSetting());
+    }
+    
+    private void resetToSetting(BranchSetting setting) {
+        modelSetting = setting;
+        
+        angleDifferenceSlider.setValue(
+            ((int) Math.round(
+                Math.toDegrees(modelSetting.getAngleDifference())
+            ))
+        );
+        lengthChangeSlider.setValue(
+            ((int) (modelSetting.getLengthChange() * 100))
+        );
+    }
+    
+    private double getAngleDifference() {
+        return Math.toRadians(
+            angleDifferenceSlider.getValue()
+        );
+    }
+    
+    private double getLengthChange() {
+        return lengthChangeSlider.getValue() / 100.;
+    }
+    
+    private void updateModelSetting() {
+        modelSetting = modelSetting.getCloneManager()
+            .withAngleDifference(getAngleDifference())
+            .withLengthChange(getLengthChange())
+            .retrieve();
+    }
+    
+    public BranchSetting getModelSetting() {
+        updateModelSetting();
+        return modelSetting;
+    }
     
     public JPanel getRootPanel() {
         return rootPanel;
