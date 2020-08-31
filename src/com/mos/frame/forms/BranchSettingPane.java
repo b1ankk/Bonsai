@@ -77,7 +77,7 @@ public class BranchSettingPane {
     
     private double getAngleDifference() {
         return Math.toRadians(
-            angleDifferenceSlider.getValue()
+            -angleDifferenceSlider.getValue()
         );
     }
     

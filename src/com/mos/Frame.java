@@ -42,7 +42,9 @@ public class Frame extends JFrame {
         drawingPanel = (MyDrawingPanel) frameBase.getDrawingPanel();
     
         drawButton = frameBase.getDrawButton();
-        drawButton.addActionListener(e -> startDrawingTree(TreeSettings.getDefaultTreeSettings()));
+        drawButton.addActionListener(
+            e -> startDrawingTree()
+        );
     }
     
     private void setUpLookAndFeel() {
@@ -58,13 +60,15 @@ public class Frame extends JFrame {
         }
     }
     
-    private void startDrawingTree(TreeSettings treeSettings) {
+    private void startDrawingTree() {
         Point treeStart = new Point(
           drawingPanel.getWidth() / 2,
-          drawingPanel.getHeight()
+          drawingPanel.getHeight() / 5 * 4
         );
+    
+        TreeSettings treeSettings = frameBase.buildTreeSettings();
         
-        Tree tree = new Tree(treeStart, 0, 80);
+        Tree tree = new Tree(treeStart, 0, treeSettings.getStartLength());
         drawingPanel.setTree(tree);
         
         tree.grow(treeSettings);

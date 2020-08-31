@@ -2,8 +2,12 @@ package com.mos.frame.forms;
 
 import com.mos.frame.components.BranchSettingsTabbedPaneManager;
 import com.mos.frame.components.MyDrawingPanel;
+import com.mos.tree.settings.BranchSetting;
+import com.mos.tree.settings.TreeSettings;
 
 import javax.swing.*;
+import java.math.BigInteger;
+import java.util.List;
 
 public class MainFrame {
     // FORM COMPONENTS
@@ -20,11 +24,17 @@ public class MainFrame {
     // border layout right
     private JScrollPane settingsScrollPane;
     private JPanel settingsPanel;
-    private JSlider levelAmountSlider;
-    private JLabel levelAmountLabel;
+    private JLabel linesToBeDrawnLabel;
+    private JPanel branchSettingsRootPanel;
+    
+    private JSlider levelCountSlider;
+    private JLabel levelCountLabel;
+    
     private JLabel branchesCountLabel;
     private JSlider branchesCountSlider;
-    private JPanel branchSettingsRootPanel;
+    
+    private JSlider startLengthSlider;
+    private JLabel startLengthLabel;
     
     // NON COMPONENT FIELDS
     private BranchSettingsTabbedPaneManager settingsPaneManager;
@@ -40,30 +50,86 @@ public class MainFrame {
     }
     
     private void init() {
-        levelAmountLabel.setText(
-            levelAmountSlider.getValue() + ""
-        );
-    
         settingsPaneManager.addConfigPaneTo(branchSettingsRootPanel);
         settingsPaneManager.updateTabsCount(branchesCountSlider.getValue());
+        updateUi();
+    }
+    
+    private void updateUi() {
+        updateLinesToBeDrawnLabel();
+        updateLevelCountLabel();
+        updateStartLengthLabel();
+        updateBranchesCountLabel();
     }
     
     private void addListeners() {
-        levelAmountSlider.addChangeListener(
-            e -> levelAmountLabel.setText(
-                levelAmountSlider.getValue() + ""
-            )
+        levelCountSlider.addChangeListener(
+            e -> updateLevelCountLabel()
         );
-        
         branchesCountSlider.addChangeListener(
             e -> {
-                final int branchesCount = branchesCountSlider.getValue();
-                
-                branchesCountLabel.setText(
-                    branchesCount + ""
+                updateBranchesCountLabel();
+                settingsPaneManager.updateTabsCount(
+                    branchesCountSlider.getValue()
                 );
-                settingsPaneManager.updateTabsCount(branchesCount);
             }
+        );
+        startLengthSlider.addChangeListener(
+            e -> updateStartLengthLabel()
+        );
+        
+        levelCountSlider.addChangeListener(
+            e -> updateLinesToBeDrawnLabel()
+        );
+        branchesCountSlider.addChangeListener(
+            e -> updateLinesToBeDrawnLabel()
+        );
+    }
+    
+    
+    private void updateLevelCountLabel() {
+        levelCountLabel.setText(
+            levelCountSlider.getValue() + ""
+        );
+    }
+    
+    private void updateBranchesCountLabel() {
+        branchesCountLabel.setText(
+            branchesCountSlider.getValue() + ""
+        );
+    }
+    
+    private void updateStartLengthLabel() {
+        startLengthLabel.setText(
+            startLengthSlider.getValue() + ""
+        );
+    }
+    
+    private void updateLinesToBeDrawnLabel() {
+        linesToBeDrawnLabel.setText(
+            calculateLinesToBeDrawn().toString()
+        );
+    }
+    
+    
+    private BigInteger calculateLinesToBeDrawn() {
+        int levels = levelCountSlider.getValue();
+        BigInteger branches = BigInteger.valueOf(branchesCountSlider.getValue());
+        
+        return branches.pow(levels);
+    }
+    
+    public TreeSettings buildTreeSettings() {
+        List<BranchSetting> branchSettings =
+            settingsPaneManager.getAllBranchSettings();
+        
+        final int branchLevels = levelCountSlider.getValue();
+        final int startLength = startLengthSlider.getValue();
+        
+        return new TreeSettings(
+            branchLevels,
+            startLength,
+            branchSettings
         );
     }
     

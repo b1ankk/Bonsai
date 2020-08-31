@@ -7,10 +7,14 @@ import java.util.List;
 public class TreeSettings implements Cloneable {
     
     private final int targetGrowthLevel;
+    private final int startLength;
     private final List<BranchSetting> branchSettings;
     
-    public TreeSettings(int targetGrowthLevel, List<BranchSetting> branchSettings) {
+    public TreeSettings(int targetGrowthLevel,
+                        int startLength,
+                        List<BranchSetting> branchSettings) {
         this.targetGrowthLevel = targetGrowthLevel;
+        this.startLength = startLength;
         this.branchSettings = branchSettings;
     }
     
@@ -34,7 +38,7 @@ public class TreeSettings implements Cloneable {
         branchSettings.add(setting1);
         branchSettings.add(setting2);
         
-        return new TreeSettings(12, branchSettings);
+        return new TreeSettings(12, 80, branchSettings);
     }
     
     public int getTargetGrowthLevel() {
@@ -43,6 +47,10 @@ public class TreeSettings implements Cloneable {
     
     public int getBranchAmount() {
         return branchSettings.size();
+    }
+    
+    public int getStartLength() {
+        return startLength;
     }
     
     public BranchSetting getSettingForBranch(int index) {

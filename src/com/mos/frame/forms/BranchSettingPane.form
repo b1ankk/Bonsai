@@ -37,10 +37,10 @@
           <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="7" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <majorTickSpacing value="40"/>
-          <maximum value="20"/>
-          <minimum value="-20"/>
-          <minorTickSpacing value="2"/>
+          <majorTickSpacing value="30"/>
+          <maximum value="60"/>
+          <minimum value="-60"/>
+          <minorTickSpacing value="5"/>
           <paintLabels value="true"/>
           <paintTicks value="true"/>
           <snapToTicks value="false"/>
