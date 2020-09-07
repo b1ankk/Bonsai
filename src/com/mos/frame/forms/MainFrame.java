@@ -40,7 +40,7 @@ public class MainFrame {
     private BranchSettingsTabbedPaneManager settingsPaneManager;
     
     private void createUIComponents() {
-        drawingPanel = new MyDrawingPanel();
+        drawingPanel = new MyDrawingPanel(1024, 1024);
         settingsPaneManager = new BranchSettingsTabbedPaneManager();
     }
     
@@ -116,7 +116,8 @@ public class MainFrame {
         int levels = levelCountSlider.getValue();
         BigInteger branches = BigInteger.valueOf(branchesCountSlider.getValue());
         
-        return branches.pow(levels);
+        return branches.pow(levels + 1)
+                       .subtract(BigInteger.ONE);
     }
     
     public TreeSettings buildTreeSettings() {

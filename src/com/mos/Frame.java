@@ -62,8 +62,8 @@ public class Frame extends JFrame {
     
     private void startDrawingTree() {
         Point treeStart = new Point(
-          drawingPanel.getWidth() / 2,
-          drawingPanel.getHeight() / 5 * 4
+          drawingPanel.getImageWidth() / 2,
+          drawingPanel.getImageHeight() / 5 * 4
         );
     
         TreeSettings treeSettings = frameBase.buildTreeSettings();
@@ -72,7 +72,7 @@ public class Frame extends JFrame {
         drawingPanel.setTree(tree);
         
         tree.grow(treeSettings);
-        drawingPanel.repaint();
+        drawingPanel.drawTree();
     }
     
 }
