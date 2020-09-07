@@ -30,11 +30,18 @@ public class MainFrame {
     private JSlider levelCountSlider;
     private JLabel levelCountLabel;
     
+    private JSlider startLengthSlider;
+    private JLabel startLengthLabel;
+    
+    private JLabel startThicknessLabel;
+    private JSlider startThicknessSlider;
+    
+    private JSlider thicknessChangeSlider;
+    private JLabel thicknessChangeLabel;
+
     private JLabel branchesCountLabel;
     private JSlider branchesCountSlider;
     
-    private JSlider startLengthSlider;
-    private JLabel startLengthLabel;
     
     // NON COMPONENT FIELDS
     private BranchSettingsTabbedPaneManager settingsPaneManager;
@@ -59,6 +66,8 @@ public class MainFrame {
         updateLinesToBeDrawnLabel();
         updateLevelCountLabel();
         updateStartLengthLabel();
+        updateStartThicknessLabel();
+        updateThicknessChangeLabel();
         updateBranchesCountLabel();
     }
     
@@ -76,6 +85,12 @@ public class MainFrame {
         );
         startLengthSlider.addChangeListener(
             e -> updateStartLengthLabel()
+        );
+        startThicknessSlider.addChangeListener(
+            e -> updateStartThicknessLabel()
+        );
+        thicknessChangeSlider.addChangeListener(
+            e -> updateThicknessChangeLabel()
         );
         
         levelCountSlider.addChangeListener(
@@ -105,6 +120,18 @@ public class MainFrame {
         );
     }
     
+    private void updateStartThicknessLabel() {
+        startThicknessLabel.setText(
+            startThicknessSlider.getValue() + ""
+        );
+    }
+    
+    private void updateThicknessChangeLabel() {
+        thicknessChangeLabel.setText(
+            "-" + thicknessChangeSlider.getValue()
+        );
+    }
+    
     private void updateLinesToBeDrawnLabel() {
         linesToBeDrawnLabel.setText(
             calculateLinesToBeDrawn().toString()
@@ -114,7 +141,9 @@ public class MainFrame {
     
     private BigInteger calculateLinesToBeDrawn() {
         int levels = levelCountSlider.getValue();
-        BigInteger branches = BigInteger.valueOf(branchesCountSlider.getValue());
+        BigInteger branches = BigInteger.valueOf(
+            branchesCountSlider.getValue()
+        );
         
         return branches.pow(levels + 1)
                        .subtract(BigInteger.ONE);
@@ -126,10 +155,17 @@ public class MainFrame {
         
         final int branchLevels = levelCountSlider.getValue();
         final int startLength = startLengthSlider.getValue();
+        final int startThickness = startThicknessSlider.getValue();
+        final int thicknessChange = -thicknessChangeSlider.getValue();
+//        return TreeSettings.getDefaultTreeSettings();
         
         return new TreeSettings(
             branchLevels,
             startLength,
+            startThickness,
+            thicknessChange,
+            TreeSettings.DEFAULT_START_COLOR,
+            TreeSettings.DEFAULT_END_COLOR,
             branchSettings
         );
     }

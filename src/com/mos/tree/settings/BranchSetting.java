@@ -6,7 +6,6 @@ public class BranchSetting implements Cloneable {
     private double angleDifference = 0;
     private Color color = Color.GREEN;
     private double lengthChange = 0.85;
-    private int thickness = 3;
     
     public double getAngleDifference() {
         return angleDifference;
@@ -18,10 +17,6 @@ public class BranchSetting implements Cloneable {
     
     public double getLengthChange() {
         return lengthChange;
-    }
-    
-    public int getThickness() {
-        return thickness;
     }
     
     @Override
@@ -58,11 +53,6 @@ public class BranchSetting implements Cloneable {
         
         public CloneManager withLengthChange(double lengthChange) {
             newInstance.lengthChange = lengthChange;
-            return this;
-        }
-        
-        public CloneManager withThickness(int thickness) {
-            newInstance.thickness = thickness;
             return this;
         }
         

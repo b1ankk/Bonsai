@@ -5,16 +5,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TreeSettings implements Cloneable {
+    public final static Color DEFAULT_START_COLOR = new Color(0x68493B);
+    public final static Color DEFAULT_END_COLOR = new Color(0x0ED900);
+    
     
     private final int targetGrowthLevel;
     private final int startLength;
+    
+    private final int startThickness;
+    private final int thicknessChange;
+    
+    private final Color startColor;
+    private final Color endColor;
+    
     private final List<BranchSetting> branchSettings;
     
     public TreeSettings(int targetGrowthLevel,
                         int startLength,
+                        int startThickness,
+                        int thicknessChange,
+                        Color startColor,
+                        Color endColor,
                         List<BranchSetting> branchSettings) {
         this.targetGrowthLevel = targetGrowthLevel;
         this.startLength = startLength;
+        this.startThickness = startThickness;
+        this.thicknessChange = thicknessChange;
+        this.startColor = startColor;
+        this.endColor = endColor;
         this.branchSettings = branchSettings;
     }
     
@@ -26,7 +44,6 @@ public class TreeSettings implements Cloneable {
             .withAngleDifference(-Math.PI / 8)
             .withColor(Color.GREEN)
             .withLengthChange(0.85)
-            .withThickness(3)
             .retrieve();
         
         BranchSetting setting2 = setting1
@@ -38,7 +55,20 @@ public class TreeSettings implements Cloneable {
         branchSettings.add(setting1);
         branchSettings.add(setting2);
         
-        return new TreeSettings(12, 80, branchSettings);
+        final int defaultGrowthLevel = 12;
+        final int defaultStartLength = 80;
+        final int defaultStartThickness = 14;
+        final int defaultThicknessChange = -1;
+        
+        return new TreeSettings(
+            defaultGrowthLevel,
+            defaultStartLength,
+            defaultStartThickness,
+            defaultThicknessChange,
+            DEFAULT_START_COLOR,
+            DEFAULT_END_COLOR,
+            branchSettings
+        );
     }
     
     public int getTargetGrowthLevel() {
@@ -51,6 +81,22 @@ public class TreeSettings implements Cloneable {
     
     public int getStartLength() {
         return startLength;
+    }
+    
+    public int getStartThickness() {
+        return startThickness;
+    }
+    
+    public int getThicknessChange() {
+        return thicknessChange;
+    }
+    
+    public Color getStartColor() {
+        return startColor;
+    }
+    
+    public Color getEndColor() {
+        return endColor;
     }
     
     public BranchSetting getSettingForBranch(int index) {

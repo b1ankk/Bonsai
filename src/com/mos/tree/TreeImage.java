@@ -52,4 +52,14 @@ public class TreeImage extends BufferedImage {
     public Graphics2D getBufferedGraphics2D() {
         return bufferedGraphics2D;
     }
+    
+    @Override
+    public Graphics2D createGraphics() {
+        Graphics2D g2d = super.createGraphics();
+        g2d.setRenderingHint(
+            RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON
+        );
+        return g2d;
+    }
 }

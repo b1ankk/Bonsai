@@ -11,12 +11,14 @@ import static java.lang.Math.PI;
 public class Tree implements Drawable {
     private final TreeBranch root;
     
-    public Tree(Point rootBase, double rootAngle, double rootLength) {
+    public Tree(Point rootBase, double rootAngle, double rootLength, int thickness, Color startColor) {
         this.root = new TreeBranch(
             new TreeNode(null, 0),
             rootBase,
             rootAngle + PI / 2,
-            rootLength
+            rootLength,
+            thickness,
+            startColor
         );
     }
     
@@ -26,10 +28,6 @@ public class Tree implements Drawable {
     
     @Override
     public void draw(Graphics2D g2d) {
-        Stroke stroke = new BasicStroke(2);
-        g2d.setColor(Color.GREEN);
-        g2d.setStroke(stroke);
-        
         root.draw(g2d);
     }
 }

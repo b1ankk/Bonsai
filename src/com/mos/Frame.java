@@ -67,8 +67,11 @@ public class Frame extends JFrame {
         );
     
         TreeSettings treeSettings = frameBase.buildTreeSettings();
+        final int startLength = treeSettings.getStartLength();
+        final int startThickness = treeSettings.getStartThickness();
+        final Color startColor = treeSettings.getStartColor();
         
-        Tree tree = new Tree(treeStart, 0, treeSettings.getStartLength());
+        Tree tree = new Tree(treeStart, 0, startLength, startThickness, startColor);
         drawingPanel.setTree(tree);
         
         tree.grow(treeSettings);
