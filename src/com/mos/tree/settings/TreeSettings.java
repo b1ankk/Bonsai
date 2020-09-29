@@ -37,12 +37,11 @@ public class TreeSettings implements Cloneable {
     }
     
     public static TreeSettings getDefaultTreeSettings() {
-        List<BranchSetting> branchSettings = new ArrayList<>(2);
+        List<BranchSetting> defaultBranchSettings = new ArrayList<>(2);
         
         BranchSetting setting1 = new BranchSetting()
             .getCloneManager()
             .withAngleDifference(-Math.PI / 8)
-            .withColor(Color.GREEN)
             .withLengthChange(0.85)
             .retrieve();
         
@@ -52,8 +51,8 @@ public class TreeSettings implements Cloneable {
             .withLengthChange(0.8)
             .retrieve();
         
-        branchSettings.add(setting1);
-        branchSettings.add(setting2);
+        defaultBranchSettings.add(setting1);
+        defaultBranchSettings.add(setting2);
         
         final int defaultGrowthLevel = 12;
         final int defaultStartLength = 80;
@@ -67,7 +66,7 @@ public class TreeSettings implements Cloneable {
             defaultThicknessChange,
             DEFAULT_START_COLOR,
             DEFAULT_END_COLOR,
-            branchSettings
+            defaultBranchSettings
         );
     }
     

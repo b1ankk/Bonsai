@@ -2,18 +2,20 @@ package com.mos.tree;
 
 import com.mos.Drawable;
 import com.mos.tree.settings.TreeSettings;
+import com.mos.util.Point;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class TreeNode implements Drawable {
-    private final TreeBranch parentBranch;
-    private final ArrayList<TreeBranch> childBranches = new ArrayList<>();
+    private final ArrayList<TreeBranch> childBranches = new ArrayList<>(4);
     
+    private final Point position;
     private final int level;
     
-    public TreeNode(TreeBranch parentBranch, int level) {
-        this.parentBranch = parentBranch;
+    
+    public TreeNode(Point position, int level) {
+        this.position = position;
         this.level = level;
     }
     
@@ -33,5 +35,9 @@ public class TreeNode implements Drawable {
     
     public int getLevel() {
         return level;
+    }
+    
+    public Point getPosition() {
+        return position;
     }
 }

@@ -59,6 +59,7 @@ public class MainFrame {
     private void init() {
         settingsPaneManager.addConfigPaneTo(branchSettingsRootPanel);
         settingsPaneManager.updateTabsCount(branchesCountSlider.getValue());
+        settingsScrollPane.getVerticalScrollBar().setUnitIncrement(16);
         updateUi();
     }
     

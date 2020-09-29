@@ -1,18 +1,11 @@
 package com.mos.tree.settings;
 
-import java.awt.*;
-
 public class BranchSetting implements Cloneable {
     private double angleDifference = 0;
-    private Color color = Color.GREEN;
     private double lengthChange = 0.85;
     
     public double getAngleDifference() {
         return angleDifference;
-    }
-    
-    public Color getColor() {
-        return color;
     }
     
     public double getLengthChange() {
@@ -43,11 +36,6 @@ public class BranchSetting implements Cloneable {
         
         public CloneManager withAngleDifference(double angleDifference) {
             newInstance.angleDifference = angleDifference;
-            return this;
-        }
-        
-        public CloneManager withColor(Color color) {
-            newInstance.color = color;
             return this;
         }
         

@@ -13,8 +13,7 @@ public class Tree implements Drawable {
     
     public Tree(Point rootBase, double rootAngle, double rootLength, int thickness, Color startColor) {
         this.root = new TreeBranch(
-            new TreeNode(null, 0),
-            rootBase,
+            new TreeNode(rootBase, 0),
             rootAngle + PI / 2,
             rootLength,
             thickness,
