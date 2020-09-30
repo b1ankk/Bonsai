@@ -1,6 +1,7 @@
 package com.mos.tree;
 
 import com.mos.Drawable;
+import com.mos.RecursiveDrawable;
 import com.mos.tree.settings.BranchSetting;
 import com.mos.tree.settings.TreeSettings;
 import com.mos.util.Maths;
@@ -10,7 +11,7 @@ import java.awt.*;
 
 import static java.lang.Math.*;
 
-public class TreeBranch implements Drawable {
+public class TreeBranch implements RecursiveDrawable, Drawable {
     private final TreeNode parentNode;
     private final TreeNode childNode;
     
@@ -60,31 +61,43 @@ public class TreeBranch implements Drawable {
         return parentNode;
     }
     
+    public TreeNode getChildNode() {
+        return childNode;
+    }
+    
+    public int getLevel() {
+        return getParentNode().getLevel();
+    }
+    
     public void grow(TreeSettings settings) {
         if (parentNode.getLevel() >= settings.getTargetGrowthLevel())
             return;
         
         for (int i = 0; i < settings.getBranchAmount(); ++i) {
-            BranchSetting setting = settings.getSettingForBranch(i);
-            final int thickness = this.thickness + settings.getThicknessChange();
-            final Color color = Maths.lerpColor(
-                settings.getStartColor(),
-                settings.getEndColor(),
-                (float) (parentNode.getLevel() + 1) / settings.getTargetGrowthLevel()
-            );
-            
-            TreeBranch branch = new TreeBranch(
-                childNode,
-                angle + setting.getAngleDifference(),
-                length * setting.getLengthChange(),
-                thickness,
-                color
-            );
-            
-            childNode.addChildBranch(branch);
+            addChildBranch(settings, i);
         }
         
         childNode.growAll(settings);
+    }
+    
+    private void addChildBranch(TreeSettings settings, int branchIndex) {
+        BranchSetting setting = settings.getSettingForBranch(branchIndex);
+        final int thickness = this.thickness + settings.getThicknessChange();
+        final Color color = Maths.lerpColor(
+            settings.getStartColor(),
+            settings.getEndColor(),
+            (float) (parentNode.getLevel() + 1) / settings.getTargetGrowthLevel()
+        );
+        
+        TreeBranch branch = new TreeBranch(
+            childNode,
+            angle + setting.getAngleDifference(),
+            length * setting.getLengthChange(),
+            thickness,
+            color
+        );
+        
+        childNode.addChildBranch(branch);
     }
     
     private Stroke makeStroke() {
@@ -102,7 +115,7 @@ public class TreeBranch implements Drawable {
     }
     
     @Override
-    public void draw(Graphics2D g2d) {
+    public void drawRecursive(Graphics2D g2d) {
         g2d.setColor(color);
         g2d.setStroke(makeStroke());
         
@@ -112,6 +125,17 @@ public class TreeBranch implements Drawable {
         );
         
         if (childNode != null)
-            childNode.draw(g2d);
+            childNode.drawRecursive(g2d);
+    }
+    
+    @Override
+    public void draw(Graphics2D g2d) {
+        g2d.setColor(color);
+        g2d.setStroke(makeStroke());
+    
+        g2d.drawLine(
+            getStartPoint().getX(), getStartPoint().getY(),
+            getEndPoint().getX(), getEndPoint().getY()
+        );
     }
 }

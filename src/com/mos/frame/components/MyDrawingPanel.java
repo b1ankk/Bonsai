@@ -10,6 +10,8 @@ public class MyDrawingPanel extends JPanel {
     private TreeImage treeImage;
     private Tree tree;
     
+    private Thread drawingThread;
+    
     public MyDrawingPanel(int imageWidth, int imageHeight) {
         treeImage = TreeImage.getDefaultImage(
             imageWidth, imageHeight
@@ -39,14 +41,38 @@ public class MyDrawingPanel extends JPanel {
         treeImage = newImage;
     }
     
+    
     public void drawTree() {
         if (tree != null) {
+            finishDrawingThreadIfNeeded();
             treeImage.clear();
-            tree.draw(treeImage.getBufferedGraphics2D());
-            
-            repaint();
+            startDrawingTreeInDrawingThread(5);
         }
     }
+    
+    private void finishDrawingThreadIfNeeded() {
+        if (drawingThread != null)
+            try {
+                drawingThread.interrupt();
+                drawingThread.join();
+                drawingThread = null;
+            }
+            catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+    }
+    
+    private void startDrawingTreeInDrawingThread(int levelDrawDelayMillis) {
+        drawingThread = new Thread(
+            () -> tree.draw(
+                treeImage.getBufferedGraphics2D(),
+                this::repaint,
+                levelDrawDelayMillis
+            )
+        );
+        drawingThread.start();
+    }
+    
     
     public int getImageWidth() {
         return treeImage.getWidth();
