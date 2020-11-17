@@ -46,8 +46,14 @@ public class MyDrawingPanel extends JPanel {
         if (tree != null) {
             finishDrawingThreadIfNeeded();
             treeImage.clear();
-            startDrawingTreeInDrawingThread(5);
+            startDrawingTreeInDrawingThread(45);
         }
+    }
+    
+    public void clear() {
+        finishDrawingThreadIfNeeded();
+        treeImage.clear();
+        repaint();
     }
     
     private void finishDrawingThreadIfNeeded() {

@@ -16,6 +16,7 @@ public class MainFrame {
     
     // border layout bottom
     private JButton drawButton;
+    private JButton clearButton;
     
     // border layout center
     private JPanel centerPanel;
@@ -73,6 +74,10 @@ public class MainFrame {
     }
     
     private void addListeners() {
+        clearButton.addActionListener(
+            e -> ((MyDrawingPanel) drawingPanel).clear()
+        );
+        
         levelCountSlider.addChangeListener(
             e -> updateLevelCountLabel()
         );

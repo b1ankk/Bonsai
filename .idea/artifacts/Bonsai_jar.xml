@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Bonsai:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Bonsai_jar</output-path>
+    <root id="archive" name="Bonsai.jar">
+      <element id="module-output" name="Bonsai" />
+    </root>
+  </artifact>
+</component>

@@ -57,7 +57,7 @@ public class Tree implements RecursiveDrawable {
     public void drawGradually(Graphics2D g2d, Runnable repaint, int delayMillis) {
         for (Queue<TreeBranch> level : branchesToDraw) {
             final long start = System.currentTimeMillis();
-            level.forEach(
+            level.parallelStream().forEach(
                 branch -> branch.draw(g2d)
             );
             repaint.run();
